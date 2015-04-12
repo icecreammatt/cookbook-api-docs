@@ -1,0 +1,382 @@
+FORMAT: 1A
+HOST: https://api.cookbook.mattcarrier.net
+
+# Recipe API
+This API is designed for browsing and saving recipes
+
+# Group Recipes
+View, list and create recipes
+## Recipes [/recipes]
+### List Recipes [GET]
++ Request
+
+    + Header
+
+            X-Auth-Token: <Session Token>
+
++ Response 200 (application/json)
+
+        [{
+          "id": 1,
+          "title": "French Toast,
+          "author": "Author or Publication Name",
+          "directions": "#Directions in Markdown Format",
+          "description": "Optional short description text",
+          "images": [{
+                "id": 1,
+                "src": "http://placehold.it/200x100",
+                "size": "small"
+            }
+          ],
+          "ingredients": [
+            { "id": 1, "title": "bread" },
+            { "id": 2, "title": "syrup" }
+          ],
+          "tags": [
+            { "id": 1, "title": "breakfast" },
+            { "id": 2, "title": "toast" }
+          ]
+        }]
+
+### Create Recipe [POST]
++ Request (application/json)
+
+    + Header
+
+            X-Auth-Token: <Session Token>
+    
+    + Body
+    
+            {
+                "title": "Chocolate Chip Cookies",
+                "author": "COokie Monster",
+                "directions": "Throw ingredients into a bowl and mix them. Done!"
+            }
+
++ Response 201 (application/json)
+
+        {
+            "id": 1,
+            "title": "Chocolate Chip Cookies",
+            "author": "COokie Monster",
+            "directions": "Throw ingredients into a bowl and mix them. Done!"
+        }
+
+## Recipes [/recipes/{id}]
+### View a single recipe [GET]
++ Request
+
+    + Header
+
+            X-Auth-Token: <Session Token>
+    
++ Response 200 (application/json)
+
+        {
+          "id": 1,
+          "title": "French Toast,
+          "author": "Author or Publication Name",
+          "directions": "#Directions in Markdown Format",
+          "description": "Optional short description text",
+          "images": [{
+                "id": 1,
+                "src": "http://placehold.it/200x100",
+                "size": "small"
+            }
+          ],
+          "ingredients": [
+            { "id": 1, "title": "bread" },
+            { "id": 2, "title": "syrup" }
+          ],
+          "categories": [
+            { "id": 1, "title": "breakfast" },
+            { "id": 2, "title": "toast" }
+          ]
+        }
+
+### Update Recipe [PUT]
++ Request (application/json)
+
+    + Header
+
+            X-Auth-Token: <Session Token>
+    
+    + Body
+    
+            {
+              "id": 1,
+              "title": "French Toast,
+              "author": "Author or Publication Name",
+              "directions": "#Directions in Markdown Format",
+              "description": "Optional short description text"
+            }
+
++ Response 201 (application/json)
+
+        {
+          "id": 1,
+          "title": "French Toast,
+          "author": "Author or Publication Name",
+          "directions": "#Directions in Markdown Format",
+          "description": "Optional short description text"
+        }
+
+## Favorite Recipes [/recipes/favorites]
+### List Favorites [GET]
++ Response 200 (application/json)
+
+    + Header
+
+            X-Auth-Token: <Session Token>
+    
+    + Body
+    
+            [{
+                "id": 1,
+                "recipe_id": 1,
+                "title": "French Toast",
+                "description": "Optional short description text"
+                "images" []
+            }]
+
+### Favorite Recipe [POST]
++ Request (application/json)
+
+    + Header
+
+            X-Auth-Token: <Session Token>
+    
+    + Body
+
+            {
+                "id": 1
+            }
+
++ Response 201 (application/json)
+
+## Favorite Recipes [/recipes/favorites/{recipe_id}]
+### Unfavorite Recipe [DELETE]
++ Request
+
+    + Header
+
+            X-Auth-Token: <Session Token>
+
++ Response 204
+
+## Recent Recipes [/recipes/recent]
+### List Recently Viewed Recipes [GET]
++ Request
+
+    + Header
+
+            X-Auth-Token: <Session Token>
+
++ Response 200 (application/json)
+
+        [{
+          "id": 1,
+          "owner_id": 1,
+          "title": "French Toast,
+          "author": "Author or Publication Name",
+          "directions": "#Directions in Markdown Format",
+          "description": "Optional short description text",
+          "images": [{
+                "id": 1,
+                "src": "http://placehold.it/200x100",
+                "size": "small"
+            }
+          ],
+          "ingredients": [
+            { "id": 1, "title": "bread" },
+            { "id": 2, "title": "syrup" }
+          ],
+          "tags": [
+            { "id": 1, "title": "breakfast" },
+            { "id": 2, "title": "toast" }
+          ]
+        }]
+
+# Group Ingredients
+List, create and delete ingredients
+## Ingredients [/ingredients]
+### List Ingredients [GET]
++ Request
+
+    + Header
+
+            X-Auth-Token: <Session Token>
+    
++ Response 200 (application/json)
+
+        [{
+            "id": 1,
+            "title": "bread"
+        }]
+
+### Create New Ingredient [POST]
++ Request (application/json)
+
+    + Header
+
+            X-Auth-Token: <Session Token>
+    
+    + Body
+    
+            {
+                "title": "bread"
+            }
+        
++ Response 201 (application/json)
+
+        {
+            "id": 1,
+            "title": "bread"
+        }
+
+## Ingredients [/ingredients/{id}]
+### List Recipes containing ingredient [GET]
++ Request
+
+    + Header
+
+            X-Auth-Token: <Session Token>
+
++ Response 200 (application/json)
+
+        [{
+          "id": 1,
+          "owner_id": 1,
+          "title": "French Toast,
+          "author": "Author or Publication Name",
+          "directions": "#Directions in Markdown Format",
+          "description": "Optional short description text",
+          "images": [{
+                "id": 1,
+                "src": "http://placehold.it/200x100",
+                "size": "small"
+            }
+          ],
+          "ingredients": [
+            { "id": 1, "title": "bread" },
+            { "id": 2, "title": "syrup" }
+          ],
+          "tags": [
+            { "id": 1, "title": "breakfast" },
+            { "id": 2, "title": "toast" }
+          ]
+        }]
+        
+## Ingredients [/ingredients/filter/{id,id,id}]
+### List Recipes containing ingredients filter [GET]
++ Request
+
+    + Header
+
+            X-Auth-Token: <Session Token>
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the ingredient to display recipes for
+
++ Response 200 (application/json)
+
+        [{
+          "id": 1,
+          "owner_id": 1,
+          "title": "French Toast,
+          "author": "Author or Publication Name",
+          "directions": "#Directions in Markdown Format",
+          "description": "Optional short description text",
+          "images": [{
+                "id": 1,
+                "src": "http://placehold.it/200x100",
+                "size": "small"
+            }
+          ],
+          "ingredients": [
+            { "id": 1, "title": "bread" },
+            { "id": 2, "title": "syrup" }
+          ],
+          "tags": [
+            { "id": 1, "title": "breakfast" },
+            { "id": 2, "title": "toast" }
+          ]
+        }]
+        
+# Group Categories
+List, create and delete categories
+## Categories [/categories]
+### List Categories [GET]
++ Request
+
+    + Header
+
+            X-Auth-Token: <Session Token>
+
++ Response 200 (application/json)
+
+        [{
+            "id": 1,
+            "title": "breakfast"
+        }]
+
+### Create New Category [POST]
++ Request (application/json)
+
+    + Header
+
+            X-Auth-Token: <Session Token>
+
+    + Body 
+
+            {
+                "title": "breakfast"
+            }
+        
++ Response 201 (application/json)
+
+        {
+            "id": 1,
+            "title": "breakfast"
+        }
+
+## Categories [/categories/{id}]
+### List Categories [GET]
++ Request
+
+    + Header
+
+            X-Auth-Token: <Session Token>
+    
++ Response 200 (application/json)
+
+        [{
+          "id": 1,
+          "owner_id": 1,
+          "title": "French Toast,
+          "author": "Author or Publication Name",
+          "directions": "#Directions in Markdown Format",
+          "description": "Optional short description text",
+          "images": [{
+                "id": 1,
+                "src": "http://placehold.it/200x100",
+                "size": "small"
+            }
+          ],
+          "ingredients": [
+            { "id": 1, "title": "bread" },
+            { "id": 2, "title": "syrup" }
+          ],
+          "tags": [
+            { "id": 1, "title": "breakfast" },
+            { "id": 2, "title": "toast" }
+          ]
+        }]
+        
+# Group Users
+## Users [/users]
+### List Users [GET]
++ Response 200 (application/json)
+
+### Create User [POST]
++ Response 200 (application/json)
